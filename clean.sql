@@ -1,9 +1,8 @@
-BEGIN;
-
+Begin;
 
 INSERT INTO PDX_weather
 SELECT
-	id , 
+	id, 
 	(raw_json -> 'current' -> 'precip')::int AS precip,
 	(raw_json -> 'current' -> 'humidity')::int AS humidity,
 	(raw_json -> 'current' -> 'temperature')::int AS temp_c,
@@ -26,7 +25,11 @@ DELETE FROM PDX_weather
 WHERE dat is null;
 
 
+DELETE FROM PDX_weather
+WHERE precip is null;
+
+
 DELETE FROM weather_scraper;
 
 
-COMMIT;
+Commit;
